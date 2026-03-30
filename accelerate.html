@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accelerate — Cheat Sheet</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Georgia', serif;
+    background: #0f1a0f;
+    color: #e0e0e0;
+    padding: 24px 16px;
+    min-height: 100vh;
+  }
+  h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #4cdd80;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .byline {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  /* FOUR KEY METRICS BANNER */
+  .metrics-wrap {
+    max-width: 1100px;
+    margin: 0 auto 24px;
+  }
+  .metrics-wrap h2 {
+    text-align: center;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #4cdd80;
+    margin-bottom: 14px;
+  }
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .metric {
+    background: #16261a;
+    border-radius: 10px;
+    padding: 16px;
+    border-bottom: 3px solid;
+    text-align: center;
+  }
+  .metric.df  { border-color: #4cdd80; }
+  .metric.lt  { border-color: #4a9eff; }
+  .metric.mttr{ border-color: #f0c040; }
+  .metric.cfr { border-color: #e05c5c; }
+  .metric .micon { font-size: 1.5rem; margin-bottom: 6px; display: block; }
+  .metric .mname { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: bold; margin-bottom: 4px; }
+  .metric.df   .mname { color: #4cdd80; }
+  .metric.lt   .mname { color: #4a9eff; }
+  .metric.mttr .mname { color: #f0c040; }
+  .metric.cfr  .mname { color: #e05c5c; }
+  .metric .mdesc { font-size: 0.78rem; color: #999; font-style: italic; line-height: 1.4; }
+  .metric .mbench { font-size: 0.72rem; margin-top: 8px; padding-top: 8px; border-top: 1px solid #ffffff15; color: #ccc; }
+  .metric .mbench strong { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+  .metric.df   .mbench strong { color: #4cdd80; }
+  .metric.lt   .mbench strong { color: #4a9eff; }
+  .metric.mttr .mbench strong { color: #f0c040; }
+  .metric.cfr  .mbench strong { color: #e05c5c; }
+
+  /* CARDS */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .card {
+    background: #16261a;
+    border-radius: 12px;
+    padding: 18px;
+    border-top: 4px solid;
+  }
+  .card.green  { border-color: #4cdd80; }
+  .card.blue   { border-color: #4a9eff; }
+  .card.yellow { border-color: #f0c040; }
+  .card.red    { border-color: #e05c5c; }
+  .card.purple { border-color: #a78bfa; }
+  .card.teal   { border-color: #2dd4bf; }
+
+  .card h2 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+  .card.green  h2 { color: #4cdd80; }
+  .card.blue   h2 { color: #4a9eff; }
+  .card.yellow h2 { color: #f0c040; }
+  .card.red    h2 { color: #e05c5c; }
+  .card.purple h2 { color: #a78bfa; }
+  .card.teal   h2 { color: #2dd4bf; }
+
+  .principle {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ffffff10;
+  }
+  .principle:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .num {
+    font-size: 0.7rem;
+    font-weight: bold;
+    min-width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .card.green  .num { background: #4cdd8022; color: #4cdd80; }
+  .card.blue   .num { background: #4a9eff22; color: #4a9eff; }
+  .card.yellow .num { background: #f0c04022; color: #f0c040; }
+  .card.red    .num { background: #e05c5c22; color: #e05c5c; }
+  .card.purple .num { background: #a78bfa22; color: #a78bfa; }
+  .card.teal   .num { background: #2dd4bf22; color: #2dd4bf; }
+
+  .principle-text strong {
+    display: block;
+    font-size: 0.9rem;
+    color: #f0f0f0;
+    margin-bottom: 2px;
+  }
+  .principle-text span {
+    font-size: 0.78rem;
+    color: #999;
+    line-height: 1.4;
+    font-style: italic;
+  }
+
+  /* Cluster table */
+  .cluster-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+    margin-top: 4px;
+  }
+  .cluster-table th {
+    text-align: left;
+    padding: 5px 8px;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #ffffff20;
+  }
+  .cluster-table td {
+    padding: 5px 8px;
+    border-bottom: 1px solid #ffffff10;
+    color: #bbb;
+    vertical-align: top;
+    line-height: 1.4;
+  }
+  .cluster-table tr:last-child td { border-bottom: none; }
+  .badge {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  .badge.elite  { background: #4cdd8022; color: #4cdd80; }
+  .badge.high   { background: #4a9eff22; color: #4a9eff; }
+  .badge.medium { background: #f0c04022; color: #f0c040; }
+  .badge.low    { background: #e05c5c22; color: #e05c5c; }
+
+  .quote-bar {
+    max-width: 1100px;
+    margin: 24px auto 0;
+    background: #16261a;
+    border-radius: 12px;
+    padding: 16px 24px;
+    border-left: 4px solid #4cdd80;
+    text-align: center;
+  }
+  .quote-bar p { font-size: 0.95rem; color: #ccc; font-style: italic; }
+  .quote-bar cite { display: block; margin-top: 6px; font-size: 0.78rem; color: #4cdd80; }
+
+  .dl-btn {
+    display: block;
+    margin: 20px auto 0;
+    padding: 12px 32px;
+    background: #4cdd80;
+    color: #0f1a0f;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+  }
+  .dl-btn:hover { background: #6feca0; }
+
+  @media print {
+    body { background: #fff; color: #111; padding: 10px; }
+    .dl-btn { display: none; }
+    .card, .metric { background: #f5fbf5; break-inside: avoid; }
+    .card.green  { border-color: #1e7a3e; }
+    .card.blue   { border-color: #1a6bbf; }
+    .card.yellow { border-color: #9a7a00; }
+    .card.red    { border-color: #8b1a1a; }
+    .card.purple { border-color: #5b3fa8; }
+    .card.teal   { border-color: #0d8a7a; }
+    .card.green  h2 { color: #1e7a3e; }
+    .card.blue   h2 { color: #1a6bbf; }
+    .card.yellow h2 { color: #9a7a00; }
+    .card.red    h2 { color: #8b1a1a; }
+    .card.purple h2 { color: #5b3fa8; }
+    .card.teal   h2 { color: #0d8a7a; }
+    h1 { color: #1e7a3e; }
+    .byline { color: #555; }
+    .principle-text strong { color: #111; }
+    .principle-text span { color: #444; }
+    .quote-bar { background: #f0f8f0; border-color: #1e7a3e; }
+    .quote-bar p { color: #333; }
+    .quote-bar cite { color: #1e7a3e; }
+    .principle { border-color: #ddd; }
+    .metric .mdesc { color: #555; }
+    .metric .mbench { color: #333; }
+    .cluster-table td { color: #333; }
+    .metrics-wrap h2 { color: #1e7a3e; }
+    .metric.df   { border-color: #1e7a3e; }
+    .metric.lt   { border-color: #1a6bbf; }
+    .metric.mttr { border-color: #9a7a00; }
+    .metric.cfr  { border-color: #8b1a1a; }
+    .metric.df   .mname { color: #1e7a3e; }
+    .metric.lt   .mname { color: #1a6bbf; }
+    .metric.mttr .mname { color: #9a7a00; }
+    .metric.cfr  .mname { color: #8b1a1a; }
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+</style>
+</head>
+<body>
+
+<h1>Accelerate: The Science of Lean Software & DevOps</h1>
+<div class="byline">Nicole Forsgren, Jez Humble & Gene Kim · Quick Reference Cheat Sheet</div>
+
+<!-- FOUR KEY METRICS -->
+<div class="metrics-wrap">
+  <h2>⚡ The Four Key Metrics (DORA)</h2>
+  <div class="metrics-grid">
+    <div class="metric df">
+      <span class="micon">🚀</span>
+      <div class="mname">Deployment Frequency</div>
+      <div class="mdesc">How often you successfully release to production</div>
+      <div class="mbench">
+        <strong>Elite</strong> On-demand (multiple/day)
+      </div>
+    </div>
+    <div class="metric lt">
+      <span class="micon">⏱️</span>
+      <div class="mname">Lead Time for Changes</div>
+      <div class="mdesc">Time from code commit to running in production</div>
+      <div class="mbench">
+        <strong>Elite</strong> Less than one hour
+      </div>
+    </div>
+    <div class="metric mttr">
+      <span class="micon">🔧</span>
+      <div class="mname">Time to Restore Service</div>
+      <div class="mdesc">How quickly you recover from a production failure</div>
+      <div class="mbench">
+        <strong>Elite</strong> Less than one hour
+      </div>
+    </div>
+    <div class="metric cfr">
+      <span class="micon">💥</span>
+      <div class="mname">Change Failure Rate</div>
+      <div class="mdesc">% of deployments causing a failure in production</div>
+      <div class="mbench">
+        <strong>Elite</strong> 0–15%
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PERFORMANCE CLUSTERS -->
+<div class="grid">
+
+  <div class="card green">
+    <h2>📊 Performance Clusters</h2>
+    <table class="cluster-table">
+      <tr>
+        <th>Tier</th>
+        <th>Deploy Freq</th>
+        <th>Lead Time</th>
+        <th>MTTR</th>
+        <th>CFR</th>
+      </tr>
+      <tr>
+        <td><span class="badge elite">Elite</span></td>
+        <td>Multiple/day</td>
+        <td>&lt; 1 hour</td>
+        <td>&lt; 1 hour</td>
+        <td>0–15%</td>
+      </tr>
+      <tr>
+        <td><span class="badge high">High</span></td>
+        <td>Daily–weekly</td>
+        <td>1 day–1 week</td>
+        <td>&lt; 1 day</td>
+        <td>0–15%</td>
+      </tr>
+      <tr>
+        <td><span class="badge medium">Medium</span></td>
+        <td>Weekly–monthly</td>
+        <td>1 week–1 month</td>
+        <td>&lt; 1 day</td>
+        <td>0–15%</td>
+      </tr>
+      <tr>
+        <td><span class="badge low">Low</span></td>
+        <td>Monthly–6 months</td>
+        <td>1–6 months</td>
+        <td>1 week+</td>
+        <td>46–60%</td>
+      </tr>
+    </table>
+    <div class="principle" style="margin-top: 12px;">
+      <div class="num">★</div>
+      <div class="principle-text">
+        <strong>Speed and stability are not a tradeoff</strong>
+        <span>Elite performers deploy more frequently AND have lower failure rates. You don't have to choose.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Technical Practices -->
+  <div class="card blue">
+    <h2>🛠️ Technical Practices That Drive Performance</h2>
+    <div class="principle">
+      <div class="num">1</div>
+      <div class="principle-text">
+        <strong>Continuous Integration (CI)</strong>
+        <span>Merge to trunk frequently. Run automated tests on every commit. Avoid long-lived branches.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">2</div>
+      <div class="principle-text">
+        <strong>Trunk-Based Development</strong>
+        <span>Small, short-lived branches or direct commits to trunk. The single biggest predictor of CI success.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">3</div>
+      <div class="principle-text">
+        <strong>Continuous Delivery (CD)</strong>
+        <span>Software is always in a releasable state. Deployments are low-risk, on-demand events — not big ceremonies.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">4</div>
+      <div class="principle-text">
+        <strong>Test Automation</strong>
+        <span>Reliable automated test suites give teams the confidence to ship fast. Manual testing is a bottleneck.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">5</div>
+      <div class="principle-text">
+        <strong>Shift Left on Security</strong>
+        <span>Security built into the dev process from day one — not bolted on at the end. Teams own security, not a separate gate.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">6</div>
+      <div class="principle-text">
+        <strong>Architecture: Loosely Coupled Systems</strong>
+        <span>Teams that can deploy independently without coordinating with others are dramatically faster. Monoliths create coordination overhead.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">7</div>
+      <div class="principle-text">
+        <strong>Version Control Everything</strong>
+        <span>Code, config, infrastructure, scripts — all in version control. Reproducibility is the goal.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lean Practices -->
+  <div class="card yellow">
+    <h2>🔄 Lean Management & Product Practices</h2>
+    <div class="principle">
+      <div class="num">1</div>
+      <div class="principle-text">
+        <strong>Work in small batches</strong>
+        <span>Small, frequent changes reduce risk, accelerate feedback, and make problems easier to isolate and fix.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">2</div>
+      <div class="principle-text">
+        <strong>Make work visible</strong>
+        <span>Use visual boards and queues. You can't manage what you can't see. WIP limits force flow over multitasking.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">3</div>
+      <div class="principle-text">
+        <strong>Limit WIP (Work in Progress)</strong>
+        <span>Too many parallel workstreams create context switching, delays, and quality issues. Focus beats busyness.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">4</div>
+      <div class="principle-text">
+        <strong>Customer feedback loops</strong>
+        <span>Teams that actively seek and integrate user feedback build better products faster. Assumptions kill velocity.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">5</div>
+      <div class="principle-text">
+        <strong>Empower teams to experiment</strong>
+        <span>Teams authorized to make decisions without external approval move faster and build more innovative solutions.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">6</div>
+      <div class="principle-text">
+        <strong>Value stream mapping</strong>
+        <span>Identify where work sits idle vs. active. Most lead time is waiting, not working. Eliminate the wait.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Culture -->
+  <div class="card purple">
+    <h2>🧬 Culture: The Westrum Model</h2>
+    <div class="principle">
+      <div class="num">→</div>
+      <div class="principle-text">
+        <strong>Pathological (Power-oriented)</strong>
+        <span>Information is hoarded. Failure is punished. Messengers are shot. Low cooperation.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">→</div>
+      <div class="principle-text">
+        <strong>Bureaucratic (Rule-oriented)</strong>
+        <span>Departments protect their own turf. Change is difficult. Failure leads to justice.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">★</div>
+      <div class="principle-text">
+        <strong>Generative (Performance-oriented) — the goal</strong>
+        <span>Information flows freely. Failure is treated as an opportunity to learn. Risks are shared. High trust.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">→</div>
+      <div class="principle-text">
+        <strong>Culture is measurable and it matters</strong>
+        <span>Generative culture is the strongest predictor of software delivery performance. Culture isn't soft — it's a lever.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">→</div>
+      <div class="principle-text">
+        <strong>Tools and process shape culture</strong>
+        <span>Good technical practices create psychological safety. You can engineer the conditions for generative culture.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leadership -->
+  <div class="card teal">
+    <h2>👥 Leadership & Organizational Practices</h2>
+    <div class="principle">
+      <div class="num">1</div>
+      <div class="principle-text">
+        <strong>Transformational leadership drives performance</strong>
+        <span>Leaders who inspire vision, provide intellectual stimulation, and recognize team members' contributions are directly correlated with higher delivery performance.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">2</div>
+      <div class="principle-text">
+        <strong>Give teams autonomy over tools and techniques</strong>
+        <span>Teams that choose their own tooling outperform teams with mandated tools. Ownership breeds investment.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">3</div>
+      <div class="principle-text">
+        <strong>Invest in employee learning</strong>
+        <span>Organizations that prioritize continuous learning have higher throughput, better stability, and less burnout.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">4</div>
+      <div class="principle-text">
+        <strong>Reduce deployment pain</strong>
+        <span>High deployment pain predicts burnout and low performance. If deployments are stressful, the process is broken — not the people.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">5</div>
+      <div class="principle-text">
+        <strong>Measure outcomes, not output</strong>
+        <span>Lines of code, story points, and hours worked are vanity metrics. The four DORA metrics are the ones that matter.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Burnout & Wellbeing -->
+  <div class="card red">
+    <h2>🔥 Burnout & Team Health</h2>
+    <div class="principle">
+      <div class="num">→</div>
+      <div class="principle-text">
+        <strong>Burnout is an organizational problem, not a personal one</strong>
+        <span>The research is clear: burnout is caused by bad processes, unclear expectations, and lack of autonomy — not weak individuals.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">→</div>
+      <div class="principle-text">
+        <strong>6 risk factors for burnout</strong>
+        <span>Work overload, lack of control, insufficient rewards, breakdown of community, absence of fairness, value conflicts.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">→</div>
+      <div class="principle-text">
+        <strong>CD reduces burnout</strong>
+        <span>Teams with continuous delivery report significantly lower burnout. Painful deployments are a leading cause of team exhaustion.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">→</div>
+      <div class="principle-text">
+        <strong>Generative culture is protective</strong>
+        <span>High-trust, low-blame environments directly reduce burnout risk. Psychological safety is not a perk — it's a performance driver.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">→</div>
+      <div class="principle-text">
+        <strong>Leader role in burnout prevention</strong>
+        <span>Remove organizational obstacles, model healthy behavior, protect teams from excessive toil and context switching.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="quote-bar">
+  <p>"The most important factor in software delivery performance is not technology. It is culture — and culture can be changed."</p>
+  <cite>— Forsgren, Humble & Kim, Accelerate</cite>
+</div>
+
+<button class="dl-btn" onclick="window.print()">🖨️ Save as PDF</button>
+
+</body>
+</html>
