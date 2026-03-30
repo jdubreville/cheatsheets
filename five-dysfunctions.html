@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Five Dysfunctions of a Team</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Georgia', serif;
+    background: #0f1923;
+    color: #e0e0e0;
+    padding: 24px 16px;
+    min-height: 100vh;
+  }
+  h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #5bc8f5;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .byline {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  /* PYRAMID */
+  .pyramid-wrap {
+    max-width: 600px;
+    margin: 0 auto 28px;
+  }
+  .pyramid-wrap h2 {
+    text-align: center;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #5bc8f5;
+    margin-bottom: 14px;
+  }
+  .pyramid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .plevel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    padding: 10px 16px;
+    text-align: center;
+    cursor: default;
+    transition: filter 0.2s;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .plevel:hover { filter: brightness(1.15); }
+  .plevel .ptitle { font-size: 0.9rem; font-weight: bold; color: #fff; }
+  .plevel .psub   { font-size: 0.72rem; color: rgba(255,255,255,0.75); font-style: italic; }
+
+  .plevel-5 { background: #c0392b; width: 100%; }
+  .plevel-4 { background: #e67e22; width: 88%; }
+  .plevel-3 { background: #d4ac0d; width: 76%; }
+  .plevel-2 { background: #27ae60; width: 64%; }
+  .plevel-1 { background: #2980b9; width: 52%; }
+
+  .pyramid-label {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 0.72rem;
+    color: #777;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* CARDS GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .card {
+    background: #16253a;
+    border-radius: 12px;
+    padding: 18px;
+    border-top: 4px solid;
+  }
+  .card.blue   { border-color: #2980b9; }
+  .card.green  { border-color: #27ae60; }
+  .card.yellow { border-color: #d4ac0d; }
+  .card.orange { border-color: #e67e22; }
+  .card.red    { border-color: #c0392b; }
+  .card.gray   { border-color: #5bc8f5; }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .dyslabel {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+  .card.blue   .dyslabel { background: #2980b922; color: #2980b9; }
+  .card.green  .dyslabel { background: #27ae6022; color: #27ae60; }
+  .card.yellow .dyslabel { background: #d4ac0d22; color: #d4ac0d; }
+  .card.orange .dyslabel { background: #e67e2222; color: #e67e22; }
+  .card.red    .dyslabel { background: #c0392b22; color: #c0392b; }
+  .card.gray   .dyslabel { background: #5bc8f522; color: #5bc8f5; }
+
+  .card h2 {
+    font-size: 1rem;
+    color: #f0f0f0;
+  }
+
+  .section-title {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 12px 0 7px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #ffffff15;
+  }
+  .card.blue   .section-title { color: #2980b9; }
+  .card.green  .section-title { color: #27ae60; }
+  .card.yellow .section-title { color: #d4ac0d; }
+  .card.orange .section-title { color: #e67e22; }
+  .card.red    .section-title { color: #c0392b; }
+  .card.gray   .section-title { color: #5bc8f5; }
+
+  .item {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 7px;
+    align-items: flex-start;
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+  .item .bullet { flex-shrink: 0; margin-top: 1px; }
+  .item.bad  .bullet { color: #e05c5c; }
+  .item.good .bullet { color: #4caf7d; }
+  .item.tip  .bullet { color: #5bc8f5; }
+  .item .itext { color: #bbb; }
+  .item .itext strong { color: #f0f0f0; }
+
+  /* quote */
+  .quote-bar {
+    max-width: 1100px;
+    margin: 24px auto 0;
+    background: #16253a;
+    border-radius: 12px;
+    padding: 16px 24px;
+    border-left: 4px solid #5bc8f5;
+    text-align: center;
+  }
+  .quote-bar p { font-size: 0.95rem; color: #ccc; font-style: italic; }
+  .quote-bar cite { display: block; margin-top: 6px; font-size: 0.78rem; color: #5bc8f5; }
+
+  .dl-btn {
+    display: block;
+    margin: 20px auto 0;
+    padding: 12px 32px;
+    background: #5bc8f5;
+    color: #0f1923;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+  }
+  .dl-btn:hover { background: #88d8f8; }
+
+  @media print {
+    body { background: #fff; color: #111; padding: 10px; }
+    .dl-btn { display: none; }
+    .card { background: #f5f8fc; break-inside: avoid; }
+    .card.blue   { border-color: #1a6bbf; }
+    .card.green  { border-color: #1e7a3e; }
+    .card.yellow { border-color: #9a7a00; }
+    .card.orange { border-color: #b05010; }
+    .card.red    { border-color: #8b1a1a; }
+    .card.gray   { border-color: #1a88bb; }
+    .card.blue   .dyslabel { color: #1a6bbf; }
+    .card.green  .dyslabel { color: #1e7a3e; }
+    .card.yellow .dyslabel { color: #9a7a00; }
+    .card.orange .dyslabel { color: #b05010; }
+    .card.red    .dyslabel { color: #8b1a1a; }
+    .card.gray   .dyslabel { color: #1a88bb; }
+    .card.blue   .section-title { color: #1a6bbf; }
+    .card.green  .section-title { color: #1e7a3e; }
+    .card.yellow .section-title { color: #9a7a00; }
+    .card.orange .section-title { color: #b05010; }
+    .card.red    .section-title { color: #8b1a1a; }
+    .card.gray   .section-title { color: #1a88bb; }
+    h1 { color: #1a88bb; }
+    .byline { color: #555; }
+    .item .itext { color: #333; }
+    .item .itext strong { color: #111; }
+    .card h2 { color: #111; }
+    .quote-bar { background: #f0f4f8; border-color: #1a88bb; }
+    .quote-bar p { color: #333; }
+    .quote-bar cite { color: #1a88bb; }
+    .plevel-5 { background: #9b2c1f !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .plevel-4 { background: #b05c10 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .plevel-3 { background: #9a7a00 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .plevel-2 { background: #1e7a3e !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .plevel-1 { background: #1a6bbf !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<h1>The Five Dysfunctions of a Team</h1>
+<div class="byline">Patrick Lencioni · Quick Reference Cheat Sheet</div>
+
+<!-- PYRAMID -->
+<div class="pyramid-wrap">
+  <h2>The Dysfunction Pyramid — Each Level Undermines the Next</h2>
+  <div class="pyramid">
+    <div class="plevel plevel-5">
+      <span class="ptitle">5 · Inattention to Results</span>
+      <span class="psub">Ego & status over team outcomes</span>
+    </div>
+    <div class="plevel plevel-4">
+      <span class="ptitle">4 · Avoidance of Accountability</span>
+      <span class="psub">Reluctance to call out peers</span>
+    </div>
+    <div class="plevel plevel-3">
+      <span class="ptitle">3 · Lack of Commitment</span>
+      <span class="psub">Ambiguity, no buy-in</span>
+    </div>
+    <div class="plevel plevel-2">
+      <span class="ptitle">2 · Fear of Conflict</span>
+      <span class="psub">Artificial harmony</span>
+    </div>
+    <div class="plevel plevel-1">
+      <span class="ptitle">1 · Absence of Trust</span>
+      <span class="psub">The root cause</span>
+    </div>
+  </div>
+  <div class="pyramid-label">
+    <span>⬆ Fix from the bottom up</span>
+    <span>Top = most visible symptom ⬆</span>
+  </div>
+</div>
+
+<!-- CARDS -->
+<div class="grid">
+
+  <!-- D1 Trust -->
+  <div class="card blue">
+    <div class="card-header">
+      <span class="dyslabel">Dysfunction 1</span>
+      <h2>Absence of Trust</h2>
+    </div>
+    <div class="section-title">What it looks like</div>
+    <div class="item bad"><span class="bullet">✗</span><span class="itext">People hide weaknesses and mistakes</span></div>
+    <div class="item bad"><span class="bullet">✗</span><span class="itext">Reluctance to ask for help or give feedback</span></div>
+    <div class="item bad"><span class="bullet">✗</span><span class="itext">Jumping to conclusions about others' motives</span></div>
+    <div class="item bad"><span class="bullet">✗</span><span class="itext">Dread of team meetings — guarded, political</span></div>
+    <div class="section-title">What good looks like</div>
+    <div class="item good"><span class="bullet">✓</span><span class="itext">Members admit mistakes and weaknesses freely</span></div>
+    <div class="item good"><span class="bullet">✓</span><span class="itext">Ask for help without hesitation</span></div>
+    <div class="item good"><span class="bullet">✓</span><span class="itext">Focus energy on the work, not office politics</span></div>
+    <div class="section-title">How to build it</div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext"><strong>Personal histories exercise</strong> — share backgrounds to humanize each other</span></div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext"><strong>Team effectiveness exercise</strong> — each person names the single most important contribution of every teammate</span></div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext"><strong>Personality profiles</strong> (MBTI, DiSC) — understand different working styles without judgment</span></div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext"><strong>Leader goes first</strong> — vulnerability cascades from the top down</span></div>
+  </div>
+
+  <!-- D2 Conflict -->
+  <div class="card green">
+    <div class="card-header">
+      <span class="dyslabel">Dysfunction 2</span>
+      <h2>Fear of Conflict</h2>
+    </div>
+    <div class="section-title">What it looks like</div>
+    <div class="item bad"><span class="bullet">✗</span><span class="itext">Boring, "let's all agree" meetings</span></div>
+    <div class="item bad"><span class="bullet">✗</span><span class="itext">Back-channel politics replace direct debate</span></div>
+    <div class="item bad"><span class="bullet">✗</span><span class="itext">Personal attacks disguised as debate (or avoided entirely)</span></div>
+    <div class="item bad"><span class="bullet">✗</span><span class="itext">Critical topics are never put on the table</span></div>
+    <div class="section-title">What good looks like</div>
+    <div class="item good"><span class="bullet">✓</span><span class="itext">Passionate, unfiltered debate about ideas</span></div>
+    <div class="item good"><span class="bullet">✓</span><span class="itext">Issues are resolved quickly — no lingering resentment</span></div>
+    <div class="item good"><span class="bullet">✓</span><span class="itext">Meetings are energizing, not soul-draining</span></div>
+    <div class="section-title">How to build it</div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext"><strong>Mining for conflict</strong> — the leader extracts buried disagreements and forces the team to work through them</span></div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext"><strong>Real-time permission</strong> — remind the team mid-meeting "this is productive conflict, keep going"</span></div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext"><strong>Thomas-Kilmann model</strong> — understand each person's default conflict style</span></div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext">Reframe: conflict ≠ personal attack. Disagree with the idea, not the person.</span></div>
+  </div>
+
+  <!-- D3 Commitment -->
+  <div class="card yellow">
+    <div class="card-header">
+      <span class="dyslabel">Dysfunction 3</span>
+      <h2>Lack of Commitment</h2>
+    </div>
+    <div class="section-title">What it looks like</div>
+    <div class="item bad"><span class="bullet">✗</span><span class="itext">Ambiguity about direction and priorities</span></div>
+    <div class="item bad"><span class="bullet">✗</span><span class="itext">Revisiting decisions in corridor conversations</span></div>
+    <div class="item bad"><span class="bullet">✗</span><span class="itext">"I'll wait and see" attitude — no real ownership</span></div>
+    <div class="item bad"><span class="bullet">✗</span><span class="itext">Excessive analysis / "analysis paralysis"</span></div>
+    <div class="section-title">What good looks like</div>
+    <div class="item good"><span class="bullet">✓</span><span class="itext">Clear direction — everyone knows the priorities</span></div>
+    <div class="item good"><span class="bullet">✓</span><span class="itext">Team rallies around a decision even if individuals disagreed</span></div>
+    <div class="item good"><span class="bullet">✓</span><span class="itext">Ability to move fast without perfect information</span></div>
+    <div class="section-title">How to build it</div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext"><strong>Cascading messaging</strong> — after every meeting, agree on what to communicate to your teams and when</span></div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext"><strong>Deadlines</strong> — set clear decision dates and honor them. Decide, then act.</span></div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext"><strong>Disagree and commit</strong> — consensus is not required; alignment is. Voice concerns, then back the decision fully.</span></div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext"><strong>Low-risk action bias</strong> — a good decision now beats a perfect decision too late</span></div>
+  </div>
+
+  <!-- D4 Accountability -->
+  <div class="card orange">
+    <div class="card-header">
+      <span class="dyslabel">Dysfunction 4</span>
+      <h2>Avoidance of Accountability</h2>
+    </div>
+    <div class="section-title">What it looks like</div>
+    <div class="item bad"><span class="bullet">✗</span><span class="itext">Mediocre performance tolerated to preserve relationships</span></div>
+    <div class="item bad"><span class="bullet">✗</span><span class="itext">Missed deadlines with no consequences</span></div>
+    <div class="item bad"><span class="bullet">✗</span><span class="itext">Resentment builds among high performers</span></div>
+    <div class="item bad"><span class="bullet">✗</span><span class="itext">The burden of accountability falls only on the leader</span></div>
+    <div class="section-title">What good looks like</div>
+    <div class="item good"><span class="bullet">✓</span><span class="itext">Peers call each other out respectfully — without waiting for the boss to do it</span></div>
+    <div class="item good"><span class="bullet">✓</span><span class="itext">High standards are maintained naturally by team pressure</span></div>
+    <div class="item good"><span class="bullet">✓</span><span class="itext">People respect each other enough to have hard conversations</span></div>
+    <div class="section-title">How to build it</div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext"><strong>Publish goals and standards</strong> — make commitments visible to everyone on the team</span></div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext"><strong>Simple, regular progress reviews</strong> — brief check-ins create natural accountability moments</span></div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext"><strong>Team rewards</strong> — incentivize collective outcomes, not just individual performance</span></div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext">Accountability between peers is a sign of respect — reframe it as such</span></div>
+  </div>
+
+  <!-- D5 Results -->
+  <div class="card red">
+    <div class="card-header">
+      <span class="dyslabel">Dysfunction 5</span>
+      <h2>Inattention to Results</h2>
+    </div>
+    <div class="section-title">What it looks like</div>
+    <div class="item bad"><span class="bullet">✗</span><span class="itext">Individual status and ego trump team success</span></div>
+    <div class="item bad"><span class="bullet">✗</span><span class="itext">Department silos — "my team vs. their team"</span></div>
+    <div class="item bad"><span class="bullet">✗</span><span class="itext">Stagnation — the team doesn't grow or improve</span></div>
+    <div class="item bad"><span class="bullet">✗</span><span class="itext">Politics, turf wars, and distraction from outcomes</span></div>
+    <div class="section-title">What good looks like</div>
+    <div class="item good"><span class="bullet">✓</span><span class="itext">Individuals sacrifice personal credit for collective wins</span></div>
+    <div class="item good"><span class="bullet">✓</span><span class="itext">Everyone is energized by shared success — not just their own slice</span></div>
+    <div class="item good"><span class="bullet">✓</span><span class="itext">Winning and losing together creates real cohesion</span></div>
+    <div class="section-title">How to build it</div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext"><strong>Public scoreboard</strong> — make team results visible. What gets measured gets attention.</span></div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext"><strong>Results-based rewards</strong> — tie bonuses and recognition to team outcomes, not individual performance alone</span></div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext"><strong>Leader models it</strong> — celebrate team wins loudly, downplay personal credit visibly</span></div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext">Ask regularly: "Is what I'm doing right now contributing to the team's #1 goal?"</span></div>
+  </div>
+
+  <!-- Leader Checklist -->
+  <div class="card gray">
+    <div class="card-header">
+      <span class="dyslabel">Leader Checklist</span>
+      <h2>Questions to Ask Your Team Regularly</h2>
+    </div>
+    <div class="section-title">Trust</div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext">Do people openly admit mistakes without fear? Does our leader model vulnerability?</span></div>
+    <div class="section-title">Conflict</div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext">Are we having the hard conversations in the room — or in the hallway afterward?</span></div>
+    <div class="section-title">Commitment</div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext">Does everyone leave meetings with clear, unambiguous direction? No one hedging?</span></div>
+    <div class="section-title">Accountability</div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext">Are team members comfortable calling each other out — not just waiting for the leader to?</span></div>
+    <div class="section-title">Results</div>
+    <div class="item tip"><span class="bullet">→</span><span class="itext">Is the team's #1 goal crystal clear, and does daily behavior reflect it?</span></div>
+    <div class="section-title">The Core Insight</div>
+    <div class="item tip"><span class="bullet">★</span><span class="itext"><strong>Teamwork is a choice, not a default.</strong> Great teams are intentionally built — starting with trust at the base and working up. Skip a layer and the whole pyramid wobbles.</span></div>
+  </div>
+
+</div>
+
+<div class="quote-bar">
+  <p>"Not finance. Not strategy. Not technology. It is teamwork that remains the ultimate competitive advantage, both because it is so powerful and so rare."</p>
+  <cite>— Patrick Lencioni</cite>
+</div>
+
+<button class="dl-btn" onclick="window.print()">🖨️ Save as PDF</button>
+
+</body>
+</html>

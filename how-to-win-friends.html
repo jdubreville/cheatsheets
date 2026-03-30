@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Win Friends & Influence People</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Georgia', serif;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    padding: 24px 16px;
+    min-height: 100vh;
+  }
+  h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #f0c040;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .byline {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .card {
+    background: #16213e;
+    border-radius: 12px;
+    padding: 18px;
+    border-top: 4px solid;
+  }
+  .card.yellow  { border-color: #f0c040; }
+  .card.blue    { border-color: #4a9eff; }
+  .card.green   { border-color: #4caf7d; }
+  .card.red     { border-color: #e05c5c; }
+  .card.purple  { border-color: #9b59b6; }
+  .card.orange  { border-color: #e67e22; }
+
+  .card h2 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+  .card.yellow h2  { color: #f0c040; }
+  .card.blue h2    { color: #4a9eff; }
+  .card.green h2   { color: #4caf7d; }
+  .card.red h2     { color: #e05c5c; }
+  .card.purple h2  { color: #9b59b6; }
+  .card.orange h2  { color: #e67e22; }
+
+  .principle {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ffffff10;
+  }
+  .principle:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .num {
+    font-size: 0.7rem;
+    font-weight: bold;
+    min-width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .card.yellow .num  { background: #f0c04022; color: #f0c040; }
+  .card.blue .num    { background: #4a9eff22; color: #4a9eff; }
+  .card.green .num   { background: #4caf7d22; color: #4caf7d; }
+  .card.red .num     { background: #e05c5c22; color: #e05c5c; }
+  .card.purple .num  { background: #9b59b622; color: #9b59b6; }
+  .card.orange .num  { background: #e67e2222; color: #e67e22; }
+
+  .principle-text strong {
+    display: block;
+    font-size: 0.9rem;
+    color: #f0f0f0;
+    margin-bottom: 2px;
+  }
+  .principle-text span {
+    font-size: 0.78rem;
+    color: #999;
+    line-height: 1.4;
+    font-style: italic;
+  }
+
+  .quote-bar {
+    max-width: 1100px;
+    margin: 24px auto 0;
+    background: #16213e;
+    border-radius: 12px;
+    padding: 16px 24px;
+    border-left: 4px solid #f0c040;
+    text-align: center;
+  }
+  .quote-bar p {
+    font-size: 0.95rem;
+    color: #ccc;
+    font-style: italic;
+  }
+  .quote-bar cite {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.78rem;
+    color: #f0c040;
+  }
+  .dl-btn {
+    display: block;
+    margin: 20px auto 0;
+    padding: 12px 32px;
+    background: #f0c040;
+    color: #1a1a2e;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+  }
+  .dl-btn:hover { background: #ffd966; }
+  @media print {
+    body { background: #fff; color: #111; padding: 10px; }
+    .dl-btn { display: none; }
+    .card { background: #f9f9f9; break-inside: avoid; }
+    .card.yellow { border-color: #c8960a; }
+    .card.blue   { border-color: #1a6bbf; }
+    .card.green  { border-color: #2e7d4f; }
+    .card.red    { border-color: #b03030; }
+    .card.purple { border-color: #6a2f8a; }
+    .card.orange { border-color: #b05010; }
+    .card.yellow h2 { color: #c8960a; }
+    .card.blue h2   { color: #1a6bbf; }
+    .card.green h2  { color: #2e7d4f; }
+    .card.red h2    { color: #b03030; }
+    .card.purple h2 { color: #6a2f8a; }
+    .card.orange h2 { color: #b05010; }
+    .card.yellow .num { color: #c8960a; }
+    .card.blue .num   { color: #1a6bbf; }
+    .card.green .num  { color: #2e7d4f; }
+    .card.red .num    { color: #b03030; }
+    .card.purple .num { color: #6a2f8a; }
+    .card.orange .num { color: #b05010; }
+    h1 { color: #c8960a; }
+    .byline { color: #555; }
+    .principle-text strong { color: #111; }
+    .principle-text span { color: #444; }
+    .quote-bar { background: #f0f0f0; border-color: #c8960a; }
+    .quote-bar p { color: #333; }
+    .quote-bar cite { color: #c8960a; }
+    .principle { border-color: #ddd; }
+  }
+</style>
+</head>
+<body>
+
+<h1>How to Win Friends &amp; Influence People</h1>
+<div class="byline">Dale Carnegie · Quick Reference Cheat Sheet</div>
+
+<div class="grid">
+
+  <!-- Part 1 -->
+  <div class="card yellow">
+    <h2>🔑 Fundamental Techniques in Handling People</h2>
+    <div class="principle">
+      <div class="num">1</div>
+      <div class="principle-text">
+        <strong>Don't criticize, condemn, or complain</strong>
+        <span>Criticism puts people on the defensive — it wounds pride and breeds resentment, not change.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">2</div>
+      <div class="principle-text">
+        <strong>Give honest, sincere appreciation</strong>
+        <span>The deepest craving in human nature is to feel important. Feed it genuinely.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">3</div>
+      <div class="principle-text">
+        <strong>Arouse in the other person an eager want</strong>
+        <span>Talk in terms of what they want, not what you want. See things from their perspective.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Part 2 -->
+  <div class="card blue">
+    <h2>😊 Six Ways to Make People Like You</h2>
+    <div class="principle">
+      <div class="num">1</div>
+      <div class="principle-text">
+        <strong>Become genuinely interested in others</strong>
+        <span>People aren't interested in you — they're interested in themselves. Show real curiosity.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">2</div>
+      <div class="principle-text">
+        <strong>Smile</strong>
+        <span>Your smile is a messenger of goodwill. It costs nothing and is worth more than almost anything.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">3</div>
+      <div class="principle-text">
+        <strong>Remember their name</strong>
+        <span>A person's name is the sweetest sound in any language. Use it.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">4</div>
+      <div class="principle-text">
+        <strong>Be a good listener — encourage them to talk</strong>
+        <span>Give the other person all the floor time they want. Ask questions they enjoy answering.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">5</div>
+      <div class="principle-text">
+        <strong>Talk in terms of their interests</strong>
+        <span>Research what lights them up. Approach every conversation from that angle.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">6</div>
+      <div class="principle-text">
+        <strong>Make them feel important — sincerely</strong>
+        <span>The golden rule: treat others how they want to be treated. Always make the other person feel valued.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Part 3 -->
+  <div class="card green">
+    <h2>🤝 Win People to Your Way of Thinking</h2>
+    <div class="principle">
+      <div class="num">1</div>
+      <div class="principle-text">
+        <strong>Avoid arguments</strong>
+        <span>You can't win an argument. Even if you win, you lose — the other person feels humiliated.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">2</div>
+      <div class="principle-text">
+        <strong>Respect others' opinions — never say "you're wrong"</strong>
+        <span>A direct challenge triggers defensiveness. Say "I may be wrong, let's look at the facts."</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">3</div>
+      <div class="principle-text">
+        <strong>If you're wrong, admit it quickly and emphatically</strong>
+        <span>Disarm criticism by beating the other person to the punch. Self-criticism earns respect.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">4</div>
+      <div class="principle-text">
+        <strong>Begin in a friendly way</strong>
+        <span>A drop of honey catches more flies than a gallon of gall. Start warm, always.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">5</div>
+      <div class="principle-text">
+        <strong>Get them saying "yes, yes" immediately</strong>
+        <span>Start with points of agreement. Build momentum with small affirmations before the big ask.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">6</div>
+      <div class="principle-text">
+        <strong>Let the other person do most of the talking</strong>
+        <span>You can't learn anything while you're talking. Listen more than you speak.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">7</div>
+      <div class="principle-text">
+        <strong>Let them feel the idea is theirs</strong>
+        <span>Nobody resists their own idea. Plant seeds and let people arrive at conclusions themselves.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">8</div>
+      <div class="principle-text">
+        <strong>Try to see things from their perspective</strong>
+        <span>Success in dealing with people lies in getting a sympathetic grasp of their viewpoint.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">9</div>
+      <div class="principle-text">
+        <strong>Be sympathetic to their ideas and desires</strong>
+        <span>"I don't blame you for feeling that way. I would probably feel the same way."</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">10</div>
+      <div class="principle-text">
+        <strong>Appeal to nobler motives</strong>
+        <span>People have two reasons for doing things: the real one and the one that sounds good. Appeal to the latter.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">11</div>
+      <div class="principle-text">
+        <strong>Dramatize your ideas</strong>
+        <span>Showmanship. A vivid demonstration beats a dry presentation every time.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">12</div>
+      <div class="principle-text">
+        <strong>Throw down a challenge</strong>
+        <span>Tap into the desire to excel. Most people respond to competition and the chance to prove themselves.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Part 4 -->
+  <div class="card red">
+    <h2>🧭 Be a Leader: Change People Without Offense</h2>
+    <div class="principle">
+      <div class="num">1</div>
+      <div class="principle-text">
+        <strong>Begin with praise and honest appreciation</strong>
+        <span>Starting with praise is like a dentist who begins with novocaine — the patient still gets drilled, but with less pain.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">2</div>
+      <div class="principle-text">
+        <strong>Call attention to mistakes indirectly</strong>
+        <span>Replace "but" with "and." "You did great work and here's how to build on it…"</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">3</div>
+      <div class="principle-text">
+        <strong>Talk about your own mistakes first</strong>
+        <span>Before criticizing, admit your own imperfections. It softens the message dramatically.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">4</div>
+      <div class="principle-text">
+        <strong>Ask questions instead of giving orders</strong>
+        <span>"Would it work if we tried this?" vs. "Do it this way." Preserves dignity and invites ownership.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">5</div>
+      <div class="principle-text">
+        <strong>Let them save face</strong>
+        <span>Even if you're right, making someone feel small destroys goodwill. Always leave them an out.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">6</div>
+      <div class="principle-text">
+        <strong>Praise every improvement, however small</strong>
+        <span>The ability to improve is stimulated by praise. Be lavish with your encouragement.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">7</div>
+      <div class="principle-text">
+        <strong>Give them a fine reputation to live up to</strong>
+        <span>Tell someone they're known for honesty or skill — they'll work hard not to disappoint that reputation.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">8</div>
+      <div class="principle-text">
+        <strong>Make faults seem easy to correct</strong>
+        <span>Encourage. Let them know the error is easy to fix and you believe in their ability to do it.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">9</div>
+      <div class="principle-text">
+        <strong>Make them happy about doing what you suggest</strong>
+        <span>Frame requests in terms of the other person's benefit, and they'll be eager to comply.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mental Models -->
+  <div class="card purple">
+    <h2>🧠 Core Mental Models</h2>
+    <div class="principle">
+      <div class="num">→</div>
+      <div class="principle-text">
+        <strong>Everyone wants to feel important</strong>
+        <span>This is the single most powerful lens in the book. When in doubt, ask: "How can I make this person feel valued?"</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">→</div>
+      <div class="principle-text">
+        <strong>Criticism changes nothing — only understanding does</strong>
+        <span>Humans rationalize. Direct attacks entrench behavior. Empathy and curiosity unlock change.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">→</div>
+      <div class="principle-text">
+        <strong>Every person believes they are right</strong>
+        <span>Rather than proving someone wrong, ask: "What led them to this conclusion? What do they need?"</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">→</div>
+      <div class="principle-text">
+        <strong>Influence = seeing their world, not selling yours</strong>
+        <span>People support what they help create. Stop pitching. Start understanding and involving them.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Reminders -->
+  <div class="card orange">
+    <h2>⚡ Quick Reminders Before Any Interaction</h2>
+    <div class="principle">
+      <div class="num">✓</div>
+      <div class="principle-text">
+        <strong>What does this person want?</strong>
+        <span>Lead with their agenda, not yours. Frame everything through their perspective.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">✓</div>
+      <div class="principle-text">
+        <strong>Am I genuinely interested or just performing it?</strong>
+        <span>Carnegie was clear: it must be sincere. Fake interest backfires worse than none at all.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">✓</div>
+      <div class="principle-text">
+        <strong>Can I skip the criticism entirely?</strong>
+        <span>Most criticism is for our own satisfaction, not behavior change. Ask if it's really necessary.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">✓</div>
+      <div class="principle-text">
+        <strong>Am I talking more than listening?</strong>
+        <span>If yes, stop. Ask a question. The best conversationalist is the best listener.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">✓</div>
+      <div class="principle-text">
+        <strong>Did I use their name?</strong>
+        <span>Remember it. Spell it right. Say it correctly. Few things signal respect more clearly.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="quote-bar">
+  <p>"You can make more friends in two months by becoming interested in other people than you can in two years by trying to get other people interested in you."</p>
+  <cite>— Dale Carnegie</cite>
+</div>
+
+<button class="dl-btn" onclick="window.print()">🖨️ Save as PDF</button>
+
+</body>
+</html>

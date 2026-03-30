@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cheat Sheets</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Georgia', serif;
+    background: #0f1923;
+    color: #e0e0e0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+  h1 {
+    font-size: 1.6rem;
+    color: #5bc8f5;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+  .sub {
+    font-size: 0.85rem;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    max-width: 700px;
+    width: 100%;
+  }
+  .card {
+    background: #16253a;
+    border-radius: 14px;
+    padding: 28px 24px;
+    width: 300px;
+    border-top: 4px solid;
+    text-decoration: none;
+    transition: transform 0.15s, filter 0.15s;
+    display: block;
+  }
+  .card:hover { transform: translateY(-3px); filter: brightness(1.1); }
+  .card.yellow { border-color: #f0c040; }
+  .card.blue   { border-color: #5bc8f5; }
+  .card .emoji { font-size: 2rem; margin-bottom: 12px; display: block; }
+  .card h2 { font-size: 1rem; color: #f0f0f0; margin-bottom: 8px; }
+  .card p  { font-size: 0.8rem; color: #888; line-height: 1.5; font-style: italic; }
+  .card.yellow .tag { color: #f0c040; }
+  .card.blue   .tag { color: #5bc8f5; }
+  .tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+    font-style: normal;
+  }
+  footer {
+    margin-top: 48px;
+    font-size: 0.75rem;
+    color: #444;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<h1>📚 Cheat Sheets</h1>
+<p class="sub">Quick reference guides — open on any device</p>
+
+<div class="cards">
+  <a class="card yellow" href="how-to-win-friends.html">
+    <span class="tag">Dale Carnegie</span>
+    <span class="emoji">🤝</span>
+    <h2>How to Win Friends &amp; Influence People</h2>
+    <p>Fundamental techniques, making people like you, persuasion principles, and leadership without offense.</p>
+  </a>
+  <a class="card blue" href="five-dysfunctions.html">
+    <span class="tag">Patrick Lencioni</span>
+    <span class="emoji">🏗️</span>
+    <h2>The Five Dysfunctions of a Team</h2>
+    <p>The dysfunction pyramid, what each looks like, how to fix it, and a leader checklist.</p>
+  </a>
+</div>
+
+<footer>Add to Home Screen in Safari or Chrome for quick access</footer>
+
+</body>
+</html>
