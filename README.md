@@ -19,4 +19,4 @@ Opens at `http://localhost:3000`.
 
 ## Deployment
 
-Hosted via GitHub Pages from the `public/` folder on `main`. Push to deploy.
+Hosted via GitHub Pages from the `docs/` folder on `main`. Push to deploy.

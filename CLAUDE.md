@@ -4,14 +4,14 @@
 A personal quick-reference site hosted on GitHub Pages at:
 `https://jdubreville.github.io/cheatsheets`
 
-Static HTML files — no build system, no framework. Drop an HTML file in `public/`, push, done.
+Static HTML files — no build system, no framework. Drop an HTML file in `docs/`, push, done.
 
 ---
 
 ## File Structure
 ```
 cheatsheets/
-├── public/
+├── docs/
 │   ├── index.html                  # Home page — card grid linking to all cheat sheets
 │   ├── how-to-win-friends.html     # How to Win Friends & Influence People — Dale Carnegie
 │   ├── five-dysfunctions.html      # The Five Dysfunctions of a Team — Patrick Lencioni
@@ -53,7 +53,7 @@ Every file must include `@media print` overrides:
 
 ---
 
-## Index Page (`public/index.html`)
+## Index Page (`docs/index.html`)
 The index is a centered card grid. Each book gets a card with:
 - A `.card.[color]` class for the border
 - A `.[color] .tag` style for the label
@@ -67,8 +67,8 @@ The index is a centered card grid. Each book gets a card with:
 ---
 
 ## How to Add a New Cheat Sheet
-1. Create `public/[book-slug].html` following the design system above
-2. Add the card to `public/index.html`
+1. Create `docs/[book-slug].html` following the design system above
+2. Add the card to `docs/index.html`
 3. Commit and push — GitHub Pages auto-deploys from the `main` branch, `/public` folder
 
 ```bash

@@ -1,6 +1,6 @@
 {
   "name": "cheatsheets",
   "scripts": {
-    "start": "npx serve public"
+    "start": "npx serve docs"
   }
 }
