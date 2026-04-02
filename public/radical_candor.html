@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radical Candor — Cheat Sheet</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Georgia', serif;
+    background: #1a0f2e;
+    color: #e0e0e0;
+    padding: 24px 16px;
+    min-height: 100vh;
+  }
+  h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #c084fc;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .byline {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  /* 2x2 MATRIX */
+  .matrix-wrap {
+    max-width: 600px;
+    margin: 0 auto 28px;
+  }
+  .matrix-wrap h2 {
+    text-align: center;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #c084fc;
+    margin-bottom: 14px;
+  }
+  .axis-label-top {
+    text-align: center;
+    font-size: 0.72rem;
+    color: #888;
+    margin-bottom: 6px;
+    font-style: italic;
+  }
+  .matrix-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    align-items: stretch;
+  }
+  .axis-label-side {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.68rem;
+    color: #888;
+    font-style: italic;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    width: 20px;
+    flex-shrink: 0;
+  }
+  .quadrant {
+    flex: 1;
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+  }
+  .quadrant .qtitle { font-size: 0.9rem; font-weight: bold; margin-bottom: 4px; }
+  .quadrant .qsub   { font-size: 0.72rem; font-style: italic; line-height: 1.4; }
+  .q-rc  { background: #2d1f4e; border: 2px solid #c084fc; }
+  .q-rc  .qtitle { color: #c084fc; }
+  .q-os  { background: #1f2e1f; border: 2px solid #4cdd80; }
+  .q-os  .qtitle { color: #4cdd80; }
+  .q-rm  { background: #2e1f1f; border: 2px solid #f87171; }
+  .q-rm  .qtitle { color: #f87171; }
+  .q-ma  { background: #1f2a2e; border: 2px solid #60a5fa; }
+  .q-ma  .qtitle { color: #60a5fa; }
+  .q-rc  .qsub { color: #c084fc99; }
+  .q-os  .qsub { color: #4cdd8099; }
+  .q-rm  .qsub { color: #f8717199; }
+  .q-ma  .qsub { color: #60a5fa99; }
+  .star { font-size: 1.2rem; display: block; margin-bottom: 4px; }
+  .matrix-axis-row {
+    display: flex;
+    gap: 8px;
+    padding-left: 28px;
+  }
+  .axis-top-label {
+    flex: 1;
+    text-align: center;
+    font-size: 0.68rem;
+    color: #666;
+    font-style: italic;
+    padding: 4px 0;
+  }
+
+  /* CARDS */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .card {
+    background: #1f1535;
+    border-radius: 12px;
+    padding: 18px;
+    border-top: 4px solid;
+  }
+  .card.purple { border-color: #c084fc; }
+  .card.green  { border-color: #4cdd80; }
+  .card.red    { border-color: #f87171; }
+  .card.blue   { border-color: #60a5fa; }
+  .card.orange { border-color: #fb923c; }
+  .card.yellow { border-color: #fbbf24; }
+
+  .card h2 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+  .card.purple h2 { color: #c084fc; }
+  .card.green  h2 { color: #4cdd80; }
+  .card.red    h2 { color: #f87171; }
+  .card.blue   h2 { color: #60a5fa; }
+  .card.orange h2 { color: #fb923c; }
+  .card.yellow h2 { color: #fbbf24; }
+
+  .principle {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ffffff10;
+  }
+  .principle:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .num {
+    font-size: 0.7rem;
+    font-weight: bold;
+    min-width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .card.purple .num { background: #c084fc22; color: #c084fc; }
+  .card.green  .num { background: #4cdd8022; color: #4cdd80; }
+  .card.red    .num { background: #f8717122; color: #f87171; }
+  .card.blue   .num { background: #60a5fa22; color: #60a5fa; }
+  .card.orange .num { background: #fb923c22; color: #fb923c; }
+  .card.yellow .num { background: #fbbf2422; color: #fbbf24; }
+
+  .principle-text strong {
+    display: block;
+    font-size: 0.9rem;
+    color: #f0f0f0;
+    margin-bottom: 2px;
+  }
+  .principle-text span {
+    font-size: 0.78rem;
+    color: #999;
+    line-height: 1.4;
+    font-style: italic;
+  }
+
+  .quote-bar {
+    max-width: 1100px;
+    margin: 24px auto 0;
+    background: #1f1535;
+    border-radius: 12px;
+    padding: 16px 24px;
+    border-left: 4px solid #c084fc;
+    text-align: center;
+  }
+  .quote-bar p { font-size: 0.95rem; color: #ccc; font-style: italic; }
+  .quote-bar cite { display: block; margin-top: 6px; font-size: 0.78rem; color: #c084fc; }
+
+  .dl-btn {
+    display: block;
+    margin: 20px auto 0;
+    padding: 12px 32px;
+    background: #c084fc;
+    color: #1a0f2e;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+  }
+  .dl-btn:hover { background: #d8b4fe; }
+
+  @media print {
+    body { background: #fff; color: #111; padding: 10px; }
+    .dl-btn { display: none; }
+    .card { background: #f9f5ff; break-inside: avoid; }
+    .card.purple { border-color: #7c3aed; }
+    .card.green  { border-color: #1e7a3e; }
+    .card.red    { border-color: #991b1b; }
+    .card.blue   { border-color: #1a6bbf; }
+    .card.orange { border-color: #c2410c; }
+    .card.yellow { border-color: #b45309; }
+    .card.purple h2 { color: #7c3aed; }
+    .card.green  h2 { color: #1e7a3e; }
+    .card.red    h2 { color: #991b1b; }
+    .card.blue   h2 { color: #1a6bbf; }
+    .card.orange h2 { color: #c2410c; }
+    .card.yellow h2 { color: #b45309; }
+    .card.purple .num { color: #7c3aed; }
+    .card.green  .num { color: #1e7a3e; }
+    .card.red    .num { color: #991b1b; }
+    .card.blue   .num { color: #1a6bbf; }
+    .card.orange .num { color: #c2410c; }
+    .card.yellow .num { color: #b45309; }
+    h1 { color: #7c3aed; }
+    .byline, .axis-label-side, .axis-top-label, .axis-label-top { color: #555; }
+    .principle-text strong { color: #111; }
+    .principle-text span { color: #444; }
+    .quote-bar { background: #f5f0ff; border-color: #7c3aed; }
+    .quote-bar p { color: #333; }
+    .quote-bar cite { color: #7c3aed; }
+    .principle { border-color: #ddd; }
+    .q-rc  { background: #f0ebff; border-color: #7c3aed; }
+    .q-os  { background: #ebfff0; border-color: #1e7a3e; }
+    .q-rm  { background: #fff0f0; border-color: #991b1b; }
+    .q-ma  { background: #ebf4ff; border-color: #1a6bbf; }
+    .q-rc  .qtitle { color: #7c3aed; }
+    .q-os  .qtitle { color: #1e7a3e; }
+    .q-rm  .qtitle { color: #991b1b; }
+    .q-ma  .qtitle { color: #1a6bbf; }
+    .q-rc  .qsub { color: #555; }
+    .q-os  .qsub { color: #555; }
+    .q-rm  .qsub { color: #555; }
+    .q-ma  .qsub { color: #555; }
+    .matrix-wrap h2 { color: #7c3aed; }
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+</style>
+</head>
+<body>
+
+<h1>Radical Candor</h1>
+<div class="byline">Kim Scott · Quick Reference Cheat Sheet</div>
+
+<!-- 2x2 MATRIX -->
+<div class="matrix-wrap">
+  <h2>The Radical Candor 2×2</h2>
+  <div class="axis-label-top">Care Personally →</div>
+  <div class="matrix-axis-row">
+    <div class="axis-top-label">Low Care</div>
+    <div class="axis-top-label">High Care</div>
+  </div>
+  <div class="matrix-row">
+    <div class="axis-label-side">Challenge Directly ↑</div>
+    <div class="quadrant q-os">
+      <span class="star">💢</span>
+      <div class="qtitle">Obnoxious Aggression</div>
+      <div class="qsub">Challenge high, care low.<br>"Brutal honesty" without empathy.</div>
+    </div>
+    <div class="quadrant q-rc">
+      <span class="star">⭐</span>
+      <div class="qtitle">Radical Candor</div>
+      <div class="qsub">Challenge high, care high.<br>The goal. Kind AND direct.</div>
+    </div>
+  </div>
+  <div class="matrix-row">
+    <div class="axis-label-side">Low Challenge ↓</div>
+    <div class="quadrant q-ma">
+      <span class="star">😶</span>
+      <div class="qtitle">Manipulative Insincerity</div>
+      <div class="qsub">Challenge low, care low.<br>Backstabbing, political, fake.</div>
+    </div>
+    <div class="quadrant q-rm">
+      <span class="star">😬</span>
+      <div class="qtitle">Ruinous Empathy</div>
+      <div class="qsub">Challenge low, care high.<br>Being "nice" at the expense of honesty.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CARDS -->
+<div class="grid">
+
+  <!-- The Core Idea -->
+  <div class="card purple">
+    <h2>💡 The Core Idea</h2>
+    <div class="principle">
+      <div class="num">1</div>
+      <div class="principle-text">
+        <strong>Care Personally + Challenge Directly = Radical Candor</strong>
+        <span>It's not enough to be honest. You have to actually give a damn about the person you're being honest with. Both axes matter equally.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">2</div>
+      <div class="principle-text">
+        <strong>It's not mean — it's kind</strong>
+        <span>Withholding honest feedback to spare someone's feelings is actually unkind. It robs them of the chance to grow.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">3</div>
+      <div class="principle-text">
+        <strong>The most common failure mode is Ruinous Empathy</strong>
+        <span>Most well-meaning managers fall here. They care but won't challenge. The result: mediocrity that festers.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">4</div>
+      <div class="principle-text">
+        <strong>Radical Candor is a relationship, not a technique</strong>
+        <span>You can't just "do" Radical Candor in a one-off conversation. It requires consistent behavior over time to build the trust that makes it land right.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- The 4 Quadrants -->
+  <div class="card red">
+    <h2>⚠️ The 4 Quadrants Explained</h2>
+    <div class="principle">
+      <div class="num">★</div>
+      <div class="principle-text">
+        <strong>Radical Candor — the goal</strong>
+        <span>You praise specifically and criticize directly. You care about the person's growth and you're not afraid to say the hard thing.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">✗</div>
+      <div class="principle-text">
+        <strong>Ruinous Empathy — most common trap</strong>
+        <span>"I don't want to hurt their feelings." Result: vague feedback, no growth, resentment. You're optimizing for your comfort, not their success.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">✗</div>
+      <div class="principle-text">
+        <strong>Obnoxious Aggression — the jerk boss</strong>
+        <span>Blunt feedback without empathy. Technically honest but delivered without care. Creates fear, not growth.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">✗</div>
+      <div class="principle-text">
+        <strong>Manipulative Insincerity — the worst</strong>
+        <span>Fake praise, backstabbing, political maneuvering. No honesty, no care. Destroys trust completely.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Giving Feedback -->
+  <div class="card green">
+    <h2>🗣️ How to Give Radically Candid Feedback</h2>
+    <div class="principle">
+      <div class="num">1</div>
+      <div class="principle-text">
+        <strong>Be humble</strong>
+        <span>Your feedback is your perception, not absolute truth. Deliver it as an observation, not a verdict.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">2</div>
+      <div class="principle-text">
+        <strong>Be helpful</strong>
+        <span>Ask yourself: is this feedback actually going to help them? If not, reconsider whether to share it.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">3</div>
+      <div class="principle-text">
+        <strong>Give feedback immediately</strong>
+        <span>Don't wait for the quarterly review. Feedback decays fast — give it while the moment is fresh and actionable.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">4</div>
+      <div class="principle-text">
+        <strong>Give it in person, privately for criticism</strong>
+        <span>Praise publicly, criticize privately. Public criticism humiliates — it doesn't improve.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">5</div>
+      <div class="principle-text">
+        <strong>Don't make it personal</strong>
+        <span>Focus on the behavior or result, not the character. "That report was unclear" not "you're a poor communicator."</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">6</div>
+      <div class="principle-text">
+        <strong>Praise specifically, not generically</strong>
+        <span>"Great job!" is ruinous empathy. Specific praise ("the way you handled that pushback in the demo was excellent") lands differently — and is far more motivating.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Receiving Feedback -->
+  <div class="card blue">
+    <h2>👂 How to Receive & Solicit Feedback</h2>
+    <div class="principle">
+      <div class="num">1</div>
+      <div class="principle-text">
+        <strong>Ask for criticism before giving it</strong>
+        <span>Demonstrate vulnerability first. "What could I be doing better?" signals safety for others to be honest with you.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">2</div>
+      <div class="principle-text">
+        <strong>Don't get defensive</strong>
+        <span>Your reaction to feedback trains others on whether to give it again. If you punish honesty — even subtly — people stop.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">3</div>
+      <div class="principle-text">
+        <strong>Reward the candor, not just the content</strong>
+        <span>Thank people for honest feedback even when it stings. Explicitly acknowledge that you valued them saying it.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">4</div>
+      <div class="principle-text">
+        <strong>Listen to understand, not to respond</strong>
+        <span>Fully absorb before reacting. Ask follow-up questions to understand the feedback deeply before you agree or disagree.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">5</div>
+      <div class="principle-text">
+        <strong>Gauge candor with the "Criticism Question"</strong>
+        <span>Regularly ask your team: "What's one thing I could do better?" If nobody has an answer, the culture isn't safe yet.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team Growth -->
+  <div class="card orange">
+    <h2>📈 Managing for Growth</h2>
+    <div class="principle">
+      <div class="num">1</div>
+      <div class="principle-text">
+        <strong>Rock Stars vs. Superstars</strong>
+        <span>Rock stars are stable, excellent performers who don't want to move up. Superstars want rapid growth. Both are essential — don't mismanage either by assuming everyone wants the same trajectory.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">2</div>
+      <div class="principle-text">
+        <strong>Understand what people want long-term</strong>
+        <span>Know each person's dreams and ambitions. Manage to those — not to a generic career ladder. People don't quit bad jobs; they quit managers who don't see them.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">3</div>
+      <div class="principle-text">
+        <strong>Don't let low performers linger</strong>
+        <span>Tolerating consistent underperformance is Ruinous Empathy in its most damaging form. It's unfair to the team and to the underperformer.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">4</div>
+      <div class="principle-text">
+        <strong>Give people work that challenges them</strong>
+        <span>Growth requires stretch assignments. A manager's job is to put people in situations that develop them — not just to keep them comfortable.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Self-Check -->
+  <div class="card yellow">
+    <h2>⚡ Quick Self-Check Before Any Feedback Conversation</h2>
+    <div class="principle">
+      <div class="num">✓</div>
+      <div class="principle-text">
+        <strong>Am I saying this because I care about them?</strong>
+        <span>If the honest answer is "no, I just need to vent" — reconsider or reframe.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">✓</div>
+      <div class="principle-text">
+        <strong>Am I being specific enough to be actionable?</strong>
+        <span>Vague feedback is useless. Name the exact behavior, moment, or outcome.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">✓</div>
+      <div class="principle-text">
+        <strong>Am I avoiding it to protect my own comfort?</strong>
+        <span>If yes, that's Ruinous Empathy. Giving the feedback IS the kind thing to do.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">✓</div>
+      <div class="principle-text">
+        <strong>Have I created safety for them to push back?</strong>
+        <span>Leave room for their perspective. Radical Candor is a dialogue, not a verdict.</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="num">✓</div>
+      <div class="principle-text">
+        <strong>Am I praising as often as I'm criticizing?</strong>
+        <span>Candor goes both ways. Catching people doing things right — specifically — is just as important as calling out what's wrong.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="quote-bar">
+  <p>"Caring personally about people even as you challenge them directly is what Radical Candor is all about. It's not just about being nice — it's about being honest in a way that actually helps people."</p>
+  <cite>— Kim Scott, Radical Candor</cite>
+</div>
+
+<button class="dl-btn" onclick="window.print()">🖨️ Save as PDF</button>
+
+</body>
+</html>
