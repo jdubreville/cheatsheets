@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Strength Routine — Cheat Sheet</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Georgia', serif;
+    background: #120a00;
+    color: #e0e0e0;
+    padding: 24px 16px;
+    min-height: 100vh;
+  }
+  h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #ff7043;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .byline {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 8px;
+    font-style: italic;
+  }
+  .schedule-bar {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .day-pill {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-style: normal;
+  }
+  .day-pill.push   { background: #ff704322; color: #ff7043; border: 1px solid #ff704355; }
+  .day-pill.pull   { background: #5bc8f522; color: #5bc8f5; border: 1px solid #5bc8f555; }
+  .day-pill.legs   { background: #4cdd8022; color: #4cdd80; border: 1px solid #4cdd8055; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: #1f1208;
+    border-radius: 12px;
+    padding: 18px;
+    border-top: 4px solid;
+  }
+  .card.push   { border-color: #ff7043; }
+  .card.pull   { border-color: #5bc8f5; }
+  .card.legs   { border-color: #4cdd80; }
+  .card.tips   { border-color: #fbbf24; }
+
+  .card h2 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+  .card.push h2 { color: #ff7043; }
+  .card.pull h2 { color: #5bc8f5; }
+  .card.legs h2 { color: #4cdd80; }
+  .card.tips h2 { color: #fbbf24; }
+
+  .card .subhead {
+    font-size: 0.72rem;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 14px;
+  }
+
+  .exercise {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ffffff10;
+  }
+  .exercise:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .num {
+    font-size: 0.7rem;
+    font-weight: bold;
+    min-width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .card.push .num { background: #ff704322; color: #ff7043; }
+  .card.pull .num { background: #5bc8f522; color: #5bc8f5; }
+  .card.legs .num { background: #4cdd8022; color: #4cdd80; }
+  .card.tips .num { background: #fbbf2422; color: #fbbf24; }
+
+  .ex-body { flex: 1; }
+
+  .ex-name {
+    display: block;
+    font-size: 0.9rem;
+    color: #f0f0f0;
+    margin-bottom: 4px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  .ex-name:hover { text-decoration: underline; }
+  .ex-name .yt-icon {
+    display: inline-block;
+    font-size: 0.7rem;
+    margin-left: 5px;
+    vertical-align: middle;
+    opacity: 0.6;
+  }
+  .ex-name:hover .yt-icon { opacity: 1; }
+
+  .ex-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 2px;
+  }
+  .badge {
+    font-size: 0.67rem;
+    padding: 2px 7px;
+    border-radius: 10px;
+    font-style: normal;
+    font-family: sans-serif;
+  }
+  .badge.reps   { background: #2a2a2a; color: #ccc; }
+  .badge.rest   { background: #1f2a1f; color: #7ecf7e; }
+  .badge.equip  { background: #1f1f2a; color: #9090d0; }
+
+  /* General Guidelines card */
+  .guideline {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ffffff10;
+  }
+  .guideline:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .guideline strong {
+    display: block;
+    font-size: 0.88rem;
+    color: #f0f0f0;
+    margin-bottom: 2px;
+  }
+  .guideline span {
+    font-size: 0.78rem;
+    color: #999;
+    line-height: 1.4;
+    font-style: italic;
+  }
+
+  .tip-box {
+    background: #ffffff08;
+    border-left: 3px solid;
+    border-radius: 0 6px 6px 0;
+    padding: 8px 10px;
+    margin-top: 10px;
+    font-size: 0.75rem;
+    font-style: italic;
+    color: #aaa;
+    line-height: 1.4;
+  }
+  .card.push .tip-box { border-color: #ff704355; }
+  .card.pull .tip-box { border-color: #5bc8f555; }
+  .card.legs .tip-box { border-color: #4cdd8055; }
+
+  .quote-bar {
+    max-width: 1100px;
+    margin: 24px auto 0;
+    background: #1f1208;
+    border-radius: 12px;
+    padding: 16px 24px;
+    border-left: 4px solid #ff7043;
+    text-align: center;
+  }
+  .quote-bar p { font-size: 0.95rem; color: #ccc; font-style: italic; }
+  .quote-bar cite { display: block; margin-top: 6px; font-size: 0.78rem; color: #ff7043; }
+
+  .dl-btn {
+    display: block;
+    margin: 20px auto 0;
+    padding: 12px 32px;
+    background: #ff7043;
+    color: #120a00;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+  }
+  .dl-btn:hover { background: #ff9166; }
+
+  @media print {
+    body { background: #fff; color: #111; padding: 10px; }
+    .dl-btn { display: none; }
+    .card { background: #fff8f5; break-inside: avoid; }
+    .card.push { border-color: #c93d1b; }
+    .card.pull { border-color: #1a7a9f; }
+    .card.legs { border-color: #1e7a3e; }
+    .card.tips { border-color: #b45309; }
+    .card.push h2 { color: #c93d1b; }
+    .card.pull h2 { color: #1a7a9f; }
+    .card.legs h2 { color: #1e7a3e; }
+    .card.tips h2 { color: #b45309; }
+    .card.push .num { color: #c93d1b; background: #fde8e2; }
+    .card.pull .num { color: #1a7a9f; background: #e2f0fd; }
+    .card.legs .num { color: #1e7a3e; background: #e2fded; }
+    .card.tips .num { color: #b45309; background: #fef3e2; }
+    .ex-name { color: #111; }
+    .badge.reps  { background: #eee; color: #333; }
+    .badge.rest  { background: #e2fded; color: #1e7a3e; }
+    .badge.equip { background: #e2e2fd; color: #333; }
+    .guideline strong { color: #111; }
+    .guideline span   { color: #444; }
+    .tip-box { background: #f5f5f5; }
+    .quote-bar { background: #fff8f5; border-color: #c93d1b; }
+    .quote-bar p { color: #333; }
+    .quote-bar cite { color: #c93d1b; }
+    .exercise { border-color: #ddd; }
+    .guideline { border-color: #ddd; }
+    .day-pill.push { background: #fde8e2; color: #c93d1b; border-color: #c93d1b; }
+    .day-pill.pull { background: #e2f0fd; color: #1a7a9f; border-color: #1a7a9f; }
+    .day-pill.legs { background: #e2fded; color: #1e7a3e; border-color: #1e7a3e; }
+    h1 { color: #c93d1b; }
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+</style>
+</head>
+<body>
+
+<h1>Home Strength Routine</h1>
+<div class="byline">3 days/week · 2 sets per exercise · Dumbbells + Functional Trainer</div>
+<div class="schedule-bar">
+  <span class="day-pill push">Monday — Push</span>
+  <span class="day-pill pull">Wednesday — Pull</span>
+  <span class="day-pill legs">Friday — Legs &amp; Core</span>
+</div>
+
+<div class="grid">
+
+  <!-- DAY 1: PUSH -->
+  <div class="card push">
+    <h2>💪 Day 1 — Push</h2>
+    <div class="subhead">Chest, Shoulders &amp; Triceps</div>
+
+    <div class="exercise">
+      <div class="num">1</div>
+      <div class="ex-body">
+        <a class="ex-name" href="https://www.youtube.com/results?search_query=dumbbell+bench+press+form+tutorial" target="_blank" rel="noopener">
+          Dumbbell Bench Press <span class="yt-icon">▶ YT</span>
+        </a>
+        <div class="ex-meta">
+          <span class="badge reps">2 × 10–12 reps</span>
+          <span class="badge rest">60–90s rest</span>
+          <span class="badge equip">Dumbbells</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="num">2</div>
+      <div class="ex-body">
+        <a class="ex-name" href="https://www.youtube.com/results?search_query=cable+chest+fly+low+to+high+form+tutorial" target="_blank" rel="noopener">
+          Cable Chest Fly (Low to High) <span class="yt-icon">▶ YT</span>
+        </a>
+        <div class="ex-meta">
+          <span class="badge reps">2 × 12–15 reps</span>
+          <span class="badge rest">60s rest</span>
+          <span class="badge equip">Functional Trainer</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="num">3</div>
+      <div class="ex-body">
+        <a class="ex-name" href="https://www.youtube.com/results?search_query=dumbbell+shoulder+press+form+tutorial" target="_blank" rel="noopener">
+          Dumbbell Shoulder Press <span class="yt-icon">▶ YT</span>
+        </a>
+        <div class="ex-meta">
+          <span class="badge reps">2 × 10–12 reps</span>
+          <span class="badge rest">60–90s rest</span>
+          <span class="badge equip">Dumbbells</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="num">4</div>
+      <div class="ex-body">
+        <a class="ex-name" href="https://www.youtube.com/results?search_query=cable+lateral+raise+form+tutorial" target="_blank" rel="noopener">
+          Cable Lateral Raise <span class="yt-icon">▶ YT</span>
+        </a>
+        <div class="ex-meta">
+          <span class="badge reps">2 × 12–15 reps</span>
+          <span class="badge rest">45s rest</span>
+          <span class="badge equip">Functional Trainer</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="num">5</div>
+      <div class="ex-body">
+        <a class="ex-name" href="https://www.youtube.com/results?search_query=cable+tricep+pushdown+form+tutorial" target="_blank" rel="noopener">
+          Cable Tricep Pushdown <span class="yt-icon">▶ YT</span>
+        </a>
+        <div class="ex-meta">
+          <span class="badge reps">2 × 12–15 reps</span>
+          <span class="badge rest">45s rest</span>
+          <span class="badge equip">Functional Trainer</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-box">💡 Choose a weight where the last 2 reps feel challenging but form stays clean.</div>
+  </div>
+
+  <!-- DAY 2: PULL -->
+  <div class="card pull">
+    <h2>🔄 Day 2 — Pull</h2>
+    <div class="subhead">Back &amp; Biceps</div>
+
+    <div class="exercise">
+      <div class="num">1</div>
+      <div class="ex-body">
+        <a class="ex-name" href="https://www.youtube.com/results?search_query=cable+seated+row+form+tutorial" target="_blank" rel="noopener">
+          Cable Seated Row <span class="yt-icon">▶ YT</span>
+        </a>
+        <div class="ex-meta">
+          <span class="badge reps">2 × 10–12 reps</span>
+          <span class="badge rest">60–90s rest</span>
+          <span class="badge equip">Functional Trainer</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="num">2</div>
+      <div class="ex-body">
+        <a class="ex-name" href="https://www.youtube.com/results?search_query=cable+lat+pulldown+form+tutorial" target="_blank" rel="noopener">
+          Cable Lat Pulldown <span class="yt-icon">▶ YT</span>
+        </a>
+        <div class="ex-meta">
+          <span class="badge reps">2 × 10–12 reps</span>
+          <span class="badge rest">60–90s rest</span>
+          <span class="badge equip">Functional Trainer</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="num">3</div>
+      <div class="ex-body">
+        <a class="ex-name" href="https://www.youtube.com/results?search_query=single+arm+dumbbell+row+form+tutorial" target="_blank" rel="noopener">
+          Single-Arm Dumbbell Row <span class="yt-icon">▶ YT</span>
+        </a>
+        <div class="ex-meta">
+          <span class="badge reps">2 × 10–12 reps each side</span>
+          <span class="badge rest">60s rest</span>
+          <span class="badge equip">Dumbbells</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="num">4</div>
+      <div class="ex-body">
+        <a class="ex-name" href="https://www.youtube.com/results?search_query=cable+face+pull+form+tutorial" target="_blank" rel="noopener">
+          Cable Face Pull <span class="yt-icon">▶ YT</span>
+        </a>
+        <div class="ex-meta">
+          <span class="badge reps">2 × 15 reps</span>
+          <span class="badge rest">45s rest</span>
+          <span class="badge equip">Functional Trainer</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="num">5</div>
+      <div class="ex-body">
+        <a class="ex-name" href="https://www.youtube.com/results?search_query=dumbbell+hammer+curl+form+tutorial" target="_blank" rel="noopener">
+          Dumbbell Hammer Curl <span class="yt-icon">▶ YT</span>
+        </a>
+        <div class="ex-meta">
+          <span class="badge reps">2 × 12 reps</span>
+          <span class="badge rest">45s rest</span>
+          <span class="badge equip">Dumbbells</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-box">💡 Face pulls protect shoulder health — don't skip them. Keep a neutral spine on all rows.</div>
+  </div>
+
+  <!-- DAY 3: LEGS & CORE -->
+  <div class="card legs">
+    <h2>🦵 Day 3 — Legs &amp; Core</h2>
+    <div class="subhead">Quads, Hamstrings &amp; Core</div>
+
+    <div class="exercise">
+      <div class="num">1</div>
+      <div class="ex-body">
+        <a class="ex-name" href="https://www.youtube.com/results?search_query=dumbbell+goblet+squat+form+tutorial" target="_blank" rel="noopener">
+          Dumbbell Goblet Squat <span class="yt-icon">▶ YT</span>
+        </a>
+        <div class="ex-meta">
+          <span class="badge reps">2 × 12 reps</span>
+          <span class="badge rest">90s rest</span>
+          <span class="badge equip">Dumbbells</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="num">2</div>
+      <div class="ex-body">
+        <a class="ex-name" href="https://www.youtube.com/results?search_query=cable+romanian+deadlift+form+tutorial" target="_blank" rel="noopener">
+          Cable Romanian Deadlift <span class="yt-icon">▶ YT</span>
+        </a>
+        <div class="ex-meta">
+          <span class="badge reps">2 × 10–12 reps</span>
+          <span class="badge rest">90s rest</span>
+          <span class="badge equip">Functional Trainer</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="num">3</div>
+      <div class="ex-body">
+        <a class="ex-name" href="https://www.youtube.com/results?search_query=dumbbell+reverse+lunge+form+tutorial" target="_blank" rel="noopener">
+          Dumbbell Reverse Lunge <span class="yt-icon">▶ YT</span>
+        </a>
+        <div class="ex-meta">
+          <span class="badge reps">2 × 10 reps each leg</span>
+          <span class="badge rest">60s rest</span>
+          <span class="badge equip">Dumbbells</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="num">4</div>
+      <div class="ex-body">
+        <a class="ex-name" href="https://www.youtube.com/results?search_query=cable+woodchop+high+to+low+form+tutorial" target="_blank" rel="noopener">
+          Cable Woodchop (High to Low) <span class="yt-icon">▶ YT</span>
+        </a>
+        <div class="ex-meta">
+          <span class="badge reps">2 × 12 reps each side</span>
+          <span class="badge rest">45s rest</span>
+          <span class="badge equip">Functional Trainer</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="num">5</div>
+      <div class="ex-body">
+        <a class="ex-name" href="https://www.youtube.com/results?search_query=plank+hold+proper+form+tutorial" target="_blank" rel="noopener">
+          Plank Hold <span class="yt-icon">▶ YT</span>
+        </a>
+        <div class="ex-meta">
+          <span class="badge reps">2 × 30–45 seconds</span>
+          <span class="badge rest">45s rest</span>
+          <span class="badge equip">Bodyweight</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-box">💡 Hinge from the hips (not lower back) on the RDL. On lunges, keep your front knee over your second toe.</div>
+  </div>
+
+  <!-- GENERAL GUIDELINES -->
+  <div class="card tips" style="grid-column: 1 / -1;">
+    <h2>📋 General Guidelines</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0 20px;">
+      <div class="guideline">
+        <div class="num">📅</div>
+        <div>
+          <strong>Schedule</strong>
+          <span>Any 3 non-consecutive days work. Mon / Wed / Fri is ideal.</span>
+        </div>
+      </div>
+      <div class="guideline">
+        <div class="num">📈</div>
+        <div>
+          <strong>Progressive Overload</strong>
+          <span>Every 1–2 weeks, add a little weight or squeeze out an extra rep to keep growing.</span>
+        </div>
+      </div>
+      <div class="guideline">
+        <div class="num">🥩</div>
+        <div>
+          <strong>Protein</strong>
+          <span>Aim for 0.7–1g per lb of bodyweight daily to support lean muscle.</span>
+        </div>
+      </div>
+      <div class="guideline">
+        <div class="num">⬆️</div>
+        <div>
+          <strong>Level Up</strong>
+          <span>Once 2 sets feel easy, increase weight first — then consider adding a 3rd set.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="quote-bar">
+  <p>"The last 2 reps of every set should be hard. If they're not, the weight is too light."</p>
+  <cite>— Home Strength Routine · Mon / Wed / Fri</cite>
+</div>
+
+<button class="dl-btn" onclick="window.print()">🖨️ Save as PDF</button>
+
+</body>
+</html>
